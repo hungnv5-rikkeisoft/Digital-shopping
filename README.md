@@ -35,7 +35,8 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ### Development Tools
 
 - **Angular CLI 20.0.3** - Command-line interface
-- **Karma & Jasmine** - Testing framework
+- **Karma & Jasmine** - Unit testing framework
+- **Cypress** - End-to-end testing framework
 - **TypeScript Compiler** - Code compilation
 - **Path Mapping** - Clean import paths (@app, @core, @features, @shared)
 
@@ -139,23 +140,113 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## 🧪 Testing Strategy
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Unit Tests
+
+The application uses **Karma** and **Jasmine** for unit testing Angular components, services, and utilities.
+
+#### Running Unit Tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner:
 
 ```bash
+# Run tests once
 ng test
+
+# Run tests with code coverage
+ng test --code-coverage
+
+# Run tests in headless mode (CI/CD)
+ng test --watch=false --browsers=ChromeHeadless
 ```
 
-## Running end-to-end tests
+#### Unit Test Coverage
 
-For end-to-end (e2e) testing, run:
+- **Components**: Testing component logic, templates, and user interactions
+- **Services**: Testing business logic, API calls, and data transformations
+- **Guards**: Testing route protection and authentication logic
+- **Pipes**: Testing data transformation and formatting
+- **Reducers/Effects**: Testing NgRx state management
+
+### End-to-End (E2E) Tests
+
+The application uses **Cypress** for comprehensive end-to-end testing, providing real user scenario validation.
+
+#### Cypress Setup
+
+The project includes a complete Cypress testing suite with:
+
+- **Comprehensive Login Tests**: Full authentication flow testing
+- **API Mocking**: Independent testing without backend dependencies
+- **Custom Commands**: Reusable test utilities for common operations
+- **Visual Regression**: UI component and interaction testing
+
+#### Running E2E Tests
 
 ```bash
-ng e2e
+# Interactive mode - opens Cypress Test Runner
+npx cypress open
+
+# Headless mode - runs all tests in terminal
+npx cypress run
+
+# Run specific test file
+npx cypress run --spec "cypress/e2e/login.cy.ts"
+
+# Run tests with specific browser
+npx cypress run --browser chrome
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+#### E2E Test Features
+
+**📋 Login Form Testing:**
+
+- ✅ Form validation (required fields, error messages)
+- ✅ API integration (success/failure scenarios)
+- ✅ Authentication flow (token storage, redirects)
+- ✅ Error handling (network issues, server errors)
+- ✅ UI/UX validation (accessibility, responsiveness)
+
+**🛠️ Custom Commands Available:**
+
+```typescript
+cy.login(username, password); // Complete login flow
+cy.mockSuccessfulLogin(); // Mock successful API response
+cy.mockFailedLogin(message); // Mock failed API response
+cy.fillLoginForm(username, password); // Fill form without submitting
+cy.shouldBeLoggedIn(); // Verify login state
+cy.shouldBeLoggedOut(); // Verify logout state
+```
+
+**🎯 Test Organization:**
+
+- **Form Validation Tests**: Input validation and error handling
+- **Form Interaction Tests**: User interface and accessibility
+- **API Integration Tests**: Backend communication and responses
+- **State Management Tests**: Form state and data persistence
+- **UI/UX Tests**: Visual elements and user experience
+
+#### Prerequisites for E2E Tests
+
+1. **Start the development server:**
+
+   ```bash
+   ng serve
+   ```
+
+2. **Ensure application is running** on `http://localhost:4200`
+
+3. **Run Cypress tests** in a separate terminal
+
+#### Test Data & Mocking
+
+E2E tests use **intercepted API calls** with mock data, ensuring:
+
+- **Fast execution** - No dependency on external APIs
+- **Reliable results** - Consistent test data
+- **Isolated testing** - No side effects between tests
+- **Comprehensive coverage** - All scenarios including edge cases
 
 ## Additional Resources
 
