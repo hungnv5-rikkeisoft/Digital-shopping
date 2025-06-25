@@ -1,0 +1,99 @@
+<div class="login-container">
+  <div class="login-background">
+    <div class="grid-overlay"></div>
+    <div class="floating-elements">
+      <div class="floating-dot"></div>
+      <div class="floating-dot"></div>
+      <div class="floating-dot"></div>
+    </div>
+  </div>
+  
+  <div class="login-card">
+    <div class="brand-header">
+      <div class="brand-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="12" fill="url(#brandGradient)"/>
+          <path d="M20 8L28 16L20 24L12 16L20 8Z" fill="white" opacity="0.9"/>
+          <circle cx="20" cy="28" r="4" fill="white" opacity="0.7"/>
+          <defs>
+            <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#6366f1"/>
+              <stop offset="100%" style="stop-color:#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h1 class="brand-title">SHOPPING NOW</h1>      
+    </div>
+
+    <div class="welcome-section">
+      <h2 class="welcome-title">Welcome Back</h2>
+      <p class="welcome-text">Access your intelligent shopping platform</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <div class="form-group">
+        <label for="username" class="form-label">Username</label>
+        <div class="input-wrapper">
+          <mat-icon class="input-icon">person_outline</mat-icon>
+          <input
+            id="username"
+            type="text"
+            class="form-input"
+            formControlName="username"
+            placeholder="Enter your username"
+            autocomplete="username"
+          />
+        </div>
+        <div class="error-message" 
+             *ngIf="loginForm.get('username')?.hasError('required') && 
+                    (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-wrapper">
+          <mat-icon class="input-icon">lock_outline</mat-icon>
+          <input
+            id="password"
+            type="password"
+            class="form-input"
+            formControlName="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+          />
+        </div>
+        <div class="error-message"
+             *ngIf="loginForm.get('password')?.hasError('required') && 
+                    (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+          Password is required
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid"
+        [class.loading]="false"
+      >
+        <span class="button-content">
+          <mat-icon class="button-icon">arrow_forward</mat-icon>
+          <span class="button-text">Access Platform</span>
+        </span>
+        <div class="button-glow"></div>
+      </button>
+
+      <div class="api-error" *ngIf="errorMessage">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+    </form>
+
+    <div class="security-badge">
+      <mat-icon class="security-icon">security</mat-icon>
+      <span>256-bit SSL Encrypted</span>
+    </div>
+  </div>
+</div>

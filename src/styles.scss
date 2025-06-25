@@ -1,4 +1,131 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Selection styling
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
+}
+
+// Focus outline reset and custom styling
+*:focus {
+  outline: none;
+}
+
+// Button reset
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+// Link styling
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// Utility classes
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Material Design overrides for dark theme
+.mat-typography {
+  color: #ffffff;
+}
+
+.mat-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.mat-form-field {
+  .mat-form-field-label {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .mat-input-element {
+    color: #ffffff !important;
+  }
+
+  .mat-form-field-outline {
+    color: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  &.mat-focused .mat-form-field-outline {
+    color: #6366f1 !important;
+  }
+}
+
+.mat-button,
+.mat-raised-button {
+  color: #ffffff !important;
+}
+
+.mat-raised-button.mat-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+}
+
+// Smooth page transitions
+app-root {
+  display: block;
+  min-height: 100vh;
+}

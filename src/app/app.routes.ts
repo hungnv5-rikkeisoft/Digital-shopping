@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './core/auth/pages/login/login.component';
-import { ProductListComponent } from './features/products/pages/product-list/product-list.component';
-import { FavoritesListComponent } from './features/favorites/pages/favorites-list/favorites-list.component';
+import { LoginComponent } from '@core/auth/pages/login/login.component';
+import { ProductListComponent } from '@features/products/pages/product-list/product-list.component';
+import { FavoritesListComponent } from '@features/favorites/pages/favorites-list/favorites-list.component';
+import { authGuard } from '@core/auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -11,12 +12,12 @@ export const routes: Routes = [
   {
     path: 'products',
     component: ProductListComponent,
-    // canActivate: [authGuard] // Will be added later
+    canActivate: [authGuard],
   },
   {
     path: 'favorites',
     component: FavoritesListComponent,
-    // canActivate: [authGuard] // Will be added later
+    canActivate: [authGuard],
   },
   {
     path: '',

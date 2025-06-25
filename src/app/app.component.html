@@ -1,1 +1,97 @@
-<router-outlet></router-outlet> 
+<!-- Navigation Header -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <h1 class="brand-text">SHOPPING<span class="brand-accent">®</span></h1>
+    </div>
+    
+    <ul class="nav-menu" [class.active]="isMenuOpen">
+      <li class="nav-item">
+        <a routerLink="/products" routerLinkActive="active" class="nav-link">PRODUCTS</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/favorites" routerLinkActive="active" class="nav-link">FAVORITES</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn$ | async; else loginLink">
+        <button (click)="logout()" class="nav-link logout-btn">LOGOUT</button>
+      </li>
+      <ng-template #loginLink>
+        <li class="nav-item">
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">LOGIN</a>
+        </li>
+      </ng-template>
+    </ul>
+    
+    <div class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" *ngIf="showHero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Elevating Digital 
+        <span class="hero-accent">Excellence</span>
+      </h1>
+      <p class="hero-subtitle">
+        We specialize in modern e-commerce solutions, curated favorites, and seamless shopping experiences. 
+        Transform your online presence with our innovative platform.
+      </p>
+      <div class="hero-cta">
+        <a routerLink="/products" class="cta-primary">EXPLORE PRODUCTS</a>
+        <a routerLink="/favorites" class="cta-secondary">VIEW FAVORITES</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <div class="card-icon">🛍️</div>
+        <span>Premium Shopping</span>
+      </div>
+      <div class="floating-card card-2">
+        <div class="card-icon">❤️</div>
+        <span>Curated Favorites</span>
+      </div>
+      <div class="floating-card card-3">
+        <div class="card-icon">✨</div>
+        <span>Seamless Experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="footer" *ngIf="showFooter">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>SHOPPING<span class="brand-accent">®</span></h3>
+        <p>Redefining digital commerce through innovative design and seamless user experiences.</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-group">
+          <h4>Platform</h4>
+          <a routerLink="/products">Products</a>
+          <a routerLink="/favorites">Favorites</a>
+        </div>
+        <div class="link-group">
+          <h4>Account</h4>
+          <a routerLink="/login">Login</a>
+          <a href="#" (click)="logout()" *ngIf="isLoggedIn$ | async">Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Shopping Webshop. All rights reserved.</p>
+    </div>
+  </div>
+</footer> 
