@@ -2,6 +2,109 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
 
+## 🛠️ Project Tech Stack
+
+### Frontend Framework
+
+- **Angular 20.0** - Modern web application framework
+- **TypeScript 5.8.2** - Strongly typed programming language
+- **SCSS** - Enhanced CSS with variables, nesting, and mixins
+
+### State Management
+
+- **NgRx Store 19.2.1** - Predictable state container
+- **NgRx Effects 19.2.1** - Side effect model for NgRx
+- **NgRx Entity 19.2.1** - Entity management utilities
+- **NgRx Store DevTools 19.2.1** - Development tools for debugging
+
+### UI & Styling
+
+- **Angular Material 20.0.3** - Material Design components
+- **Angular CDK 20.0.3** - Component Development Kit
+- **Inter Font** - Modern typography
+- **Material Icons** - Icon library
+- **Custom SCSS** - Dark theme with modern design
+
+### HTTP & Authentication
+
+- **Angular HttpClient** - HTTP communication
+- **RxJS 7.8.0** - Reactive programming with observables
+- **JWT Token Authentication** - Secure user authentication
+- **HTTP Interceptors** - Request/response middleware
+
+### Development Tools
+
+- **Angular CLI 20.0.3** - Command-line interface
+- **Karma & Jasmine** - Testing framework
+- **TypeScript Compiler** - Code compilation
+- **Path Mapping** - Clean import paths (@app, @core, @features, @shared)
+
+### External APIs
+
+- **DummyJSON API** - Mock e-commerce data source
+
+## 📋 Business Flow
+
+### 1. Authentication Flow
+
+```
+User Access → Login Component → Auth Service → API Login → JWT Token → Local Storage → Route Guard Protection
+```
+
+### 2. Product Management Flow
+
+```
+Product List → API Service → NgRx Store → Product Effects → State Update → UI Rendering
+```
+
+### 3. Favorites System Flow
+
+```
+Product Card → Add/Remove Favorite → Favorites Service → NgRx Store → Local Storage → Favorites List
+```
+
+### 4. Core Features
+
+#### 🔐 Authentication System
+
+- **Login/Logout functionality** with JWT token management
+- **Route protection** using Angular Guards
+- **Persistent sessions** with localStorage
+- **Auto-redirect** for unauthorized access
+
+#### 🛍️ Product Catalog
+
+- **Product browsing** with pagination and search
+- **Category filtering** and product search
+- **Product details** with images, ratings, and reviews
+- **Real-time product information** from DummyJSON API
+
+#### ❤️ Favorites Management
+
+- **Add/Remove products** to/from favorites
+- **Persistent favorites** stored locally
+- **Favorites list view** with complete product information
+- **Toggle functionality** across the application
+
+#### 🎨 User Experience
+
+- **Modern dark theme** with smooth animations
+- **Responsive design** for all device sizes
+- **Material Design** components and patterns
+- **Loading states** and error handling
+- **Optimistic UI updates** for better performance
+
+### 5. Application Architecture
+
+The application follows **Angular's recommended architecture** with:
+
+- **Feature-based modules** (products, favorites, auth)
+- **Lazy loading** for optimal performance
+- **Barrel exports** for clean imports
+- **Reactive programming** with RxJS streams
+- **Immutable state management** with NgRx
+- **Separation of concerns** with services, guards, and interceptors
+
 ## Development server
 
 To start a local development server, run:
