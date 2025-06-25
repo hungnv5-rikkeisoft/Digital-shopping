@@ -1,31 +1,69 @@
 <div class="favorites-container">
+  <!-- Header Section -->
   <div class="favorites-header">
+    <h1 class="page-title">
+      My <span class="title-accent">Favorites</span>
+    </h1>
+    <p class="page-subtitle">Your curated collection of favorite products</p>
     
+    <!-- Stats and Actions -->
     <div class="favorites-actions" *ngIf="hasFavorites$ | async">
       <span class="favorites-count">({{ count$ | async }} items)</span>
-      <button (click)="onClearAllFavorites()" class="clear-all-btn">Clear All</button>
+      <button (click)="onClearAllFavorites()" class="clear-all-btn">
+        <span>Clear All</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18"></path>
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
-  <div *ngIf="loading$ | async" class="loading-spinner">
-    <div class="spinner"></div>
-    <p>Loading favorites...</p>
+  <!-- Loading State -->
+  <div *ngIf="loading$ | async" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading favorites...</p>
   </div>
 
+  <!-- Error State -->
   <div *ngIf="error$ | async as error" class="error-message">
-    <p>Error: {{ error }}</p>
+    <div class="error-icon">⚠️</div>
+    <h3>Something went wrong</h3>
+    <p>{{ error }}</p>
+    <button (click)="ngOnInit()" class="retry-btn">Try Again</button>
   </div>
 
+  <!-- Main Content -->
   <div 
     *ngIf="!(loading$ | async) && !(error$ | async)" 
     class="favorites-content">
     
+    <!-- Statistics Cards -->
+    <div *ngIf="hasFavorites$ | async" class="favorites-stats">
+      <div class="stat-card">
+        <div class="stat-icon">❤️</div>
+        <div class="stat-info">
+          <div class="stat-number">{{ count$ | async }}</div>
+          <div class="stat-label">Total Favorites</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🛍️</div>
+        <div class="stat-info">
+          <div class="stat-number">Ready</div>
+          <div class="stat-label">To Purchase</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Favorites Grid -->
     <div *ngIf="hasFavorites$ | async" class="favorites-grid">
       <app-product-card 
-        *ngFor="let favorite of favorites$ | async; trackBy: trackByProductId"
+        *ngFor="let favorite of favorites$ | async; trackBy: trackByProductId; let i = index"
         [product]="favorite"
         [showFavoriteButton]="true"
+        [ngClass]="'favorite-item-' + (i + 1)"
         (toggleFavorite)="onToggleFavorite($event)">
       </app-product-card>
     </div>
@@ -33,9 +71,15 @@
     <!-- Empty State -->
     <div *ngIf="!(hasFavorites$ | async)" class="empty-favorites">
       <div class="empty-icon">💔</div>
-      <h3>No Favorites Yet</h3>
-      <p>Start exploring our products and add items to your favorites list!</p>
-      <a routerLink="/products" class="browse-products-btn">Browse Products</a>
+      <h3 class="empty-title">No Favorites Yet</h3>
+      <p class="empty-description">Start exploring our products and add items to your favorites list!</p>
+      <a routerLink="/products" class="browse-products-btn">
+        Browse Products
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
     </div>
   </div>
 </div>
