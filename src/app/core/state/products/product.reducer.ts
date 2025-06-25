@@ -4,7 +4,6 @@ import { Product } from '../../models/product.model';
 import * as ProductActions from './product.actions';
 
 export interface ProductState extends EntityState<Product> {
-  selectedProductId: number | null;
   loading: boolean;
   error: string | null;
   total: number;
@@ -21,7 +20,6 @@ export interface ProductState extends EntityState<Product> {
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 
 export const initialState: ProductState = adapter.getInitialState({
-  selectedProductId: null,
   loading: false,
   error: null,
   total: 0,
@@ -62,9 +60,8 @@ export const productReducer = createReducer(
   })),
 
   // Load Product Detail
-  on(ProductActions.loadProductDetail, (state, { id }) => ({
+  on(ProductActions.loadProductDetail, (state) => ({
     ...state,
-    selectedProductId: id,
     loading: false,
     error: null,
   })),

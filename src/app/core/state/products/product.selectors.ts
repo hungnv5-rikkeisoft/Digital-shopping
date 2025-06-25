@@ -33,11 +33,6 @@ export const selectProductsError = createSelector(
   (state) => state.error
 );
 
-export const selectSelectedProductId = createSelector(
-  selectProductState,
-  (state) => state.selectedProductId
-);
-
 export const selectCurrentPage = createSelector(
   selectProductState,
   (state) => state.currentPage
@@ -64,11 +59,6 @@ export const selectProductsTotal = createSelector(
 );
 
 // Computed Selectors
-export const selectSelectedProduct = createSelector(
-  selectProductEntities,
-  selectSelectedProductId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : null)
-);
 
 export const selectFilteredProducts = createSelector(
   selectAllProducts,
@@ -140,6 +130,3 @@ export const selectProductCategories = createSelector(
     return [...new Set(categories)].sort();
   }
 );
-
-export const selectProductById = (id: number) =>
-  createSelector(selectProductEntities, (entities) => entities[id]);

@@ -51,28 +51,6 @@ export class FavoritesService {
     return of(void 0);
   }
 
-  isFavorite(productId: number): boolean {
-    return this.favoritesSubject.value.some((fav) => fav.id === productId);
-  }
-
-  getFavoritesCount(): number {
-    return this.favoritesSubject.value.length;
-  }
-
-  toggleFavorite(
-    product: Product
-  ): Observable<{ product: Product; isAdded: boolean }> {
-    const isFav = this.isFavorite(product.id);
-
-    if (isFav) {
-      this.removeFromFavorites(product.id);
-      return of({ product, isAdded: false });
-    } else {
-      this.addToFavorites(product);
-      return of({ product, isAdded: true });
-    }
-  }
-
   private loadFavoritesFromStorage(): void {
     try {
       const stored = localStorage.getItem(this.STORAGE_KEY);

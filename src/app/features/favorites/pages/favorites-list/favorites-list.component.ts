@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState } from '../../../../core/state/app.state';
-import { Product } from '../../../../core/models/product.model';
+import { AppState } from '@core/state/app.state';
+import { Product } from '@core/models/product.model';
 import {
   selectAllFavorites,
   selectFavoritesLoading,
@@ -13,15 +13,15 @@ import {
   selectFavoritesCount,
   selectHasFavorites,
   FavoritesActions,
-} from '../../../../core/state';
-import { ProductCardComponent } from '../../../../shared/ui/product-card/product-card.component';
+} from '@core/state';
+import { ProductCardComponent } from '@shared/ui/product-card/product-card.component';
 
 @Component({
   selector: 'app-favorites-list',
   standalone: true,
   imports: [CommonModule, RouterLink, ProductCardComponent],
   templateUrl: './favorites-list.component.html',
-  styleUrls: ['./favorites-list.component.scss'],
+  styleUrl: './favorites-list.component.scss',
 })
 export class FavoritesListComponent implements OnInit {
   favorites$: Observable<Product[]>;

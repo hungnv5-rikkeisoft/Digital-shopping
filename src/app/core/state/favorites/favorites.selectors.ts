@@ -48,15 +48,7 @@ export const selectFavoritesCount = createSelector(
 export const selectIsFavorite = (productId: number) =>
   createSelector(selectFavoriteEntities, (entities) => !!entities[productId]);
 
-export const selectFavoriteById = (id: number) =>
-  createSelector(selectFavoriteEntities, (entities) => entities[id]);
-
 export const selectHasFavorites = createSelector(
   selectFavoritesCount,
   (count) => count > 0
-);
-
-export const selectFavoritesOrderedByDate = createSelector(
-  selectAllFavorites,
-  (favorites) => [...favorites].reverse() // Assuming latest added are at the end
 );

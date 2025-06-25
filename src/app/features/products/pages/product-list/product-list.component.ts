@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { AppState } from '../../../../core/state/app.state';
-import { Product } from '../../../../core/models/product.model';
+import { AppState } from '@core/state/app.state';
+import { Product } from '@core/models/product.model';
 import {
   selectFilteredProducts,
   selectProductsLoading,
@@ -16,15 +16,15 @@ import {
   selectSelectedCategory,
   ProductActions,
   FavoritesActions,
-} from '../../../../core/state';
-import { ProductCardComponent } from '../../../../shared/ui/product-card/product-card.component';
+} from '@core/state';
+import { ProductCardComponent } from '@shared/ui/product-card/product-card.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule, FormsModule, ProductCardComponent],
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
+  styleUrl: './product-list.component.scss',
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -89,10 +89,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   onToggleFavorite(product: Product): void {
     this.store.dispatch(FavoritesActions.toggleFavorite({ product }));
-  }
-
-  onProductClick(product: Product): void {
-    this.store.dispatch(ProductActions.loadProductDetail({ id: product.id }));
   }
 
   trackByProductId(index: number, product: Product): number {

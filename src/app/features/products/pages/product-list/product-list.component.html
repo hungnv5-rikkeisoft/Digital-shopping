@@ -39,8 +39,7 @@
         *ngFor="let product of products$ | async; trackBy: trackByProductId"
         [product]="product"
         [showFavoriteButton]="true"
-        (toggleFavorite)="onToggleFavorite($event)"
-        (productClick)="onProductClick($event)">
+        (toggleFavorite)="onToggleFavorite($event)">
       </app-product-card>
     </div>
 

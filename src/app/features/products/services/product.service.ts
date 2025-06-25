@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { Product, ProductsResponse } from '../../../core/models/product.model';
+import { environment } from '@environments/environment';
+import { Product, ProductsResponse } from '@core/models/product.model';
 
 export interface ProductQueryParams {
   limit?: number;
@@ -72,16 +72,6 @@ export class ProductService {
   // Get single product by ID
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}products/${id}`);
-  }
-
-  // Get all categories
-  getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}products/categories`);
-  }
-
-  // Get category list (simple array of strings)
-  getCategoryList(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}products/category-list`);
   }
 
   // Get products by category

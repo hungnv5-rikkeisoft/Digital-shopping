@@ -3,22 +3,21 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Product } from '../../../core/models/product.model';
-import { AppState } from '../../../core/state/app.state';
-import { selectIsFavorite } from '../../../core/state';
+import { Product } from '@core/models/product.model';
+import { AppState } from '@core/state/app.state';
+import { selectIsFavorite } from '@core/state';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss'],
+  styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
   @Input() showFavoriteButton = true;
   @Output() toggleFavorite = new EventEmitter<Product>();
-  @Output() productClick = new EventEmitter<Product>();
 
   isFavorite$: Observable<boolean> = new Observable();
 
@@ -33,10 +32,6 @@ export class ProductCardComponent implements OnInit {
   onToggleFavorite(event: Event): void {
     event.stopPropagation();
     this.toggleFavorite.emit(this.product);
-  }
-
-  onProductClick(): void {
-    this.productClick.emit(this.product);
   }
 
   getRatingStars(rating: number): string[] {
