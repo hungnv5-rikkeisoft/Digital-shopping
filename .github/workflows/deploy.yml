@@ -36,7 +36,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build Angular app
-        run: yarn build --configuration production --base-href /Angular-webshop/
+        run: yarn build --configuration production --base-href /Digital-shopping/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
