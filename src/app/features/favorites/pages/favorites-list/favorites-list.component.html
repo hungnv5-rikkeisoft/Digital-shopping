@@ -1,0 +1,41 @@
+<div class="favorites-container">
+  <div class="favorites-header">
+    
+    <div class="favorites-actions" *ngIf="hasFavorites$ | async">
+      <span class="favorites-count">({{ count$ | async }} items)</span>
+      <button (click)="onClearAllFavorites()" class="clear-all-btn">Clear All</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading$ | async" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading favorites...</p>
+  </div>
+
+  <div *ngIf="error$ | async as error" class="error-message">
+    <p>Error: {{ error }}</p>
+  </div>
+
+  <div 
+    *ngIf="!(loading$ | async) && !(error$ | async)" 
+    class="favorites-content">
+    
+    <!-- Favorites Grid -->
+    <div *ngIf="hasFavorites$ | async" class="favorites-grid">
+      <app-product-card 
+        *ngFor="let favorite of favorites$ | async; trackBy: trackByProductId"
+        [product]="favorite"
+        [showFavoriteButton]="true"
+        (toggleFavorite)="onToggleFavorite($event)">
+      </app-product-card>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!(hasFavorites$ | async)" class="empty-favorites">
+      <div class="empty-icon">💔</div>
+      <h3>No Favorites Yet</h3>
+      <p>Start exploring our products and add items to your favorites list!</p>
+      <a routerLink="/products" class="browse-products-btn">Browse Products</a>
+    </div>
+  </div>
+</div>

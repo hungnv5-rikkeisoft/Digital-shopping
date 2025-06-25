@@ -32,6 +32,19 @@
 
 <!-- Hero Section -->
 <section class="hero" *ngIf="showHero">
+  <!-- Lightweight User Info -->
+  <div class="user-info-bar" *ngIf="(isLoggedIn$ | async) && (currentUser$ | async) as user">
+    <div class="user-info-content">
+      <div class="user-avatar-small">
+        <img [src]="user.image" [alt]="user.firstName + ' ' + user.lastName" class="avatar-small">
+      </div>
+      <div class="user-greeting">
+        <span class="greeting-text">Welcome back, <strong>{{ user.firstName }}</strong></span>
+        <span class="user-email">{{ user.email }}</span>
+      </div>
+    </div>
+  </div>
+  
   <div class="hero-container">
     <div class="hero-content">
       <h1 class="hero-title">

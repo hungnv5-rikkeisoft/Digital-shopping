@@ -560,6 +560,83 @@
   }
 }
 
+// Lightweight User Information Bar
+.user-info-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 0;
+
+  .user-info-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .user-avatar-small {
+    .avatar-small {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(99, 102, 241, 0.4);
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: rgba(99, 102, 241, 0.8);
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .user-greeting {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+
+    .greeting-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+
+      strong {
+        color: #ffffff;
+        font-weight: 600;
+      }
+    }
+
+    .user-email {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 400;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .user-info-content {
+      padding: 0 1rem;
+    }
+
+    .user-greeting {
+      .greeting-text {
+        font-size: 0.85rem;
+      }
+
+      .user-email {
+        font-size: 0.7rem;
+      }
+    }
+  }
+}
+
 // Focus states
 .nav-link:focus,
 .cta-primary:focus,

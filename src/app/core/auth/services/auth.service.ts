@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { User } from '@core/models/user.model';
+import { User, LoginRequest, LoginResponse } from '../../models/user.model';
 import { Router } from '@angular/router';
-import { ApiService } from '@core/services/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,7 @@ export class AuthService {
 
   private readonly API_URL = `auth/login`;
   private readonly TOKEN_KEY = 'accessToken';
+  private readonly USER_KEY = 'currentUser';
 
   constructor() {
     this.checkToken();
@@ -32,21 +33,47 @@ export class AuthService {
   private checkToken(): void {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem(this.TOKEN_KEY);
-      if (token) {
-        // Here you might want to validate the token with your backend
-        // For this demo, we'll just assume it's valid
-        this.loggedIn.next(true);
-        // You could also fetch user data again based on the token
+      const userData = localStorage.getItem(this.USER_KEY);
+
+      if (token && userData) {
+        try {
+          const user: User = JSON.parse(userData);
+          this.loggedIn.next(true);
+          this.user.next(user);
+        } catch (error) {
+          // If user data is corrupted, clear everything
+          this.clearStoredData();
+        }
       }
     }
   }
 
-  login(credentials: { username: string; password: string }): Observable<User> {
-    return this.apiService.post<User>(this.API_URL, credentials).pipe(
-      tap((user) => {
+  private clearStoredData(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(this.TOKEN_KEY);
+      localStorage.removeItem(this.USER_KEY);
+    }
+  }
+
+  login(credentials: LoginRequest): Observable<LoginResponse> {
+    return this.apiService.post<LoginResponse>(this.API_URL, credentials).pipe(
+      tap((response) => {
+        // Extract user info from login response
+        const user: User = {
+          id: response.id,
+          username: response.username,
+          email: response.email,
+          firstName: response.firstName,
+          lastName: response.lastName,
+          gender: response.gender,
+          image: response.image,
+        };
+
         if (typeof window !== 'undefined') {
-          localStorage.setItem(this.TOKEN_KEY, user.accessToken);
+          localStorage.setItem(this.TOKEN_KEY, response.token);
+          localStorage.setItem(this.USER_KEY, JSON.stringify(user));
         }
+
         this.loggedIn.next(true);
         this.user.next(user);
       })
@@ -54,9 +81,7 @@ export class AuthService {
   }
 
   logout(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(this.TOKEN_KEY);
-    }
+    this.clearStoredData();
     this.loggedIn.next(false);
     this.user.next(null);
     this.router.navigate(['/login']);

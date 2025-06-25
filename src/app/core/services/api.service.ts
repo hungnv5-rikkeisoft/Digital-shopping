@@ -1,50 +1,73 @@
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
+
+export interface ApiRequestOptions {
+  headers?: HttpHeaders | { [header: string]: string | string[] };
+  params?: HttpParams | { [param: string]: string | string[] };
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private http = inject(HttpClient);
-  private readonly API_BASE_URL = environment.API_BASE_URL;
+  private baseUrl = environment.API_BASE_URL;
 
-  get<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
-    return this.http.get<T>(`${this.API_BASE_URL}${path}`, { params });
+  constructor(private http: HttpClient) {}
+
+  get<T>(endpoint: string, options?: ApiRequestOptions): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}${endpoint}`, options);
   }
 
-  post<T>(path: string, body: object = {}): Observable<T> {
-    return this.http.post<T>(
-      `${this.API_BASE_URL}${path}`,
-      JSON.stringify(body),
-      {
-        headers: this.setHeaders(),
-      }
-    );
+  post<T>(
+    endpoint: string,
+    data: any,
+    options?: ApiRequestOptions
+  ): Observable<T> {
+    return this.http.post<T>(`${this.baseUrl}${endpoint}`, data, options);
   }
 
-  put<T>(path: string, body: object = {}): Observable<T> {
-    return this.http.put<T>(
-      `${this.API_BASE_URL}${path}`,
-      JSON.stringify(body),
-      {
-        headers: this.setHeaders(),
-      }
-    );
+  put<T>(
+    endpoint: string,
+    data: any,
+    options?: ApiRequestOptions
+  ): Observable<T> {
+    return this.http.put<T>(`${this.baseUrl}${endpoint}`, data, options);
   }
 
-  delete<T>(path: string): Observable<T> {
-    return this.http.delete<T>(`${this.API_BASE_URL}${path}`, {
-      headers: this.setHeaders(),
-    });
+  patch<T>(
+    endpoint: string,
+    data: any,
+    options?: ApiRequestOptions
+  ): Observable<T> {
+    return this.http.patch<T>(`${this.baseUrl}${endpoint}`, data, options);
   }
 
-  private setHeaders(): HttpHeaders {
-    const headersConfig = {
+  delete<T>(endpoint: string, options?: ApiRequestOptions): Observable<T> {
+    return this.http.delete<T>(`${this.baseUrl}${endpoint}`, options);
+  }
+
+  // Helper method for authenticated requests
+  getAuthHeaders(token?: string): HttpHeaders {
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Accept: 'application/json',
-    };
-    return new HttpHeaders(headersConfig);
+    });
+
+    if (token || this.getStoredToken()) {
+      headers = headers.set(
+        'Authorization',
+        `Bearer ${token || this.getStoredToken()}`
+      );
+    }
+
+    return headers;
+  }
+
+  private getStoredToken(): string | null {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('accessToken');
+    }
+    return null;
   }
 }

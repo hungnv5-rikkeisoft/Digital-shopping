@@ -1,0 +1,53 @@
+<div class="product-list-container">
+  <div class="filters-section">
+    <div class="search-bar">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (keyup.enter)="onSearch()"
+        placeholder="Search products..."
+        class="search-input">
+      <button (click)="onSearch()" class="search-btn">Search</button>
+    </div>
+
+    <div class="filters">
+      <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()" class="category-select">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories$ | async" [value]="category">
+          {{ category | titlecase }}
+        </option>
+      </select>
+      
+      <button (click)="onClearFilters()" class="clear-filters-btn">Clear Filters</button>
+    </div>
+  </div>
+
+  <div class="products-section">
+    <div *ngIf="loading$ | async" class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Loading products...</p>
+    </div>
+
+    <div *ngIf="error$ | async as error" class="error-message">
+      <p>Error: {{ error }}</p>
+    </div>
+
+    <div 
+      *ngIf="!(loading$ | async) && !(error$ | async)" 
+      class="products-grid">
+      <app-product-card 
+        *ngFor="let product of products$ | async; trackBy: trackByProductId"
+        [product]="product"
+        [showFavoriteButton]="true"
+        (toggleFavorite)="onToggleFavorite($event)"
+        (productClick)="onProductClick($event)">
+      </app-product-card>
+    </div>
+
+    <div 
+      *ngIf="!(loading$ | async) && !(error$ | async) && (products$ | async)?.length === 0" 
+      class="no-products">
+      <p>No products found. Try adjusting your filters.</p>
+    </div>
+  </div>
+</div>

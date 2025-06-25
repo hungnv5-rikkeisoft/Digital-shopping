@@ -6,8 +6,11 @@ import {
   Router,
 } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
 import { AuthService } from '@core/auth/services/auth.service';
 import { Observable } from 'rxjs';
+import { User } from '@core/models/user.model';
+import * as FavoritesActions from '@core/state/favorites/favorites.actions';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +22,19 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private store = inject(Store);
 
   title = 'Angular-webshop';
   isMenuOpen = false;
   isLoggedIn$: Observable<boolean>;
+  currentUser$: Observable<User | null>;
 
   constructor() {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.currentUser$ = this.authService.currentUser$;
+
+    // Load favorites from localStorage on app initialization
+    this.store.dispatch(FavoritesActions.loadFavorites());
   }
 
   get showHero(): boolean {
