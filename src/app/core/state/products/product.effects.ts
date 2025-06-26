@@ -10,7 +10,7 @@ import {
   selectSearchQuery,
   selectSelectedCategory,
 } from './product.selectors';
-import { ProductsResponse, Product } from '../../models/product.model';
+import { ProductsResponse } from '../../models/product.model';
 
 @Injectable()
 export class ProductEffects {
@@ -43,24 +43,6 @@ export class ProductEffects {
             )
           );
       })
-    )
-  );
-
-  loadProductDetail$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ProductActions.loadProductDetail),
-      switchMap(({ id }) =>
-        this.productService.getProductById(id).pipe(
-          map((product: Product) =>
-            ProductActions.loadProductDetailSuccess({ product })
-          ),
-          catchError((error) =>
-            of(
-              ProductActions.loadProductDetailFailure({ error: error.message })
-            )
-          )
-        )
-      )
     )
   );
 

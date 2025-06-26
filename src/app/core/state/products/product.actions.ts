@@ -17,22 +17,6 @@ export const loadProductsFailure = createAction(
   props<{ error: string }>()
 );
 
-// Load Product Detail Actions
-export const loadProductDetail = createAction(
-  '[Product] Load Product Detail',
-  props<{ id: number }>()
-);
-
-export const loadProductDetailSuccess = createAction(
-  '[Product] Load Product Detail Success',
-  props<{ product: Product }>()
-);
-
-export const loadProductDetailFailure = createAction(
-  '[Product] Load Product Detail Failure',
-  props<{ error: string }>()
-);
-
 // Search Products Actions
 export const searchProducts = createAction(
   '[Product] Search Products',

@@ -6,10 +6,10 @@
     </div>
     
     <ul class="nav-menu" [class.active]="isMenuOpen">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isLoggedIn$ | async">
         <a routerLink="/products" routerLinkActive="active" class="nav-link">PRODUCTS</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isLoggedIn$ | async">
         <a routerLink="/favorites" routerLinkActive="active" class="nav-link">FAVORITES</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn$ | async; else loginLink">

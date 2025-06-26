@@ -69,11 +69,6 @@ export class ProductService {
     });
   }
 
-  // Get single product by ID
-  getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.apiUrl}products/${id}`);
-  }
-
   // Get products by category
   getProductsByCategory(
     category: string,

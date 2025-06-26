@@ -59,27 +59,6 @@ export const productReducer = createReducer(
     error,
   })),
 
-  // Load Product Detail
-  on(ProductActions.loadProductDetail, (state) => ({
-    ...state,
-    loading: false,
-    error: null,
-  })),
-
-  on(ProductActions.loadProductDetailSuccess, (state, { product }) =>
-    adapter.upsertOne(product, {
-      ...state,
-      loading: false,
-      error: null,
-    })
-  ),
-
-  on(ProductActions.loadProductDetailFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
-
   // Search and Filter
   on(ProductActions.searchProducts, (state, { query }) => ({
     ...state,

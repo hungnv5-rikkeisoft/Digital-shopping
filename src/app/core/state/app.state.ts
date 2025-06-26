@@ -5,8 +5,3 @@ export interface AppState {
   products: ProductState;
   favorites: FavoritesState;
 }
-
-// Root state interface for the entire application
-export interface RootState {
-  app: AppState;
-}
