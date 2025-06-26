@@ -11,7 +11,7 @@ import { authInterceptor } from '@core/auth/interceptors/auth.interceptor';
 import { reducers } from './core/state';
 import { ProductEffects } from './core/state/products/product.effects';
 import { FavoritesEffects } from './core/state/favorites/favorites.effects';
-import { environment } from '../environments/environment';
+import { environment } from '@environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [

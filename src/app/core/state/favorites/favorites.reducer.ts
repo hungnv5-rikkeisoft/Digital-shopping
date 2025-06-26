@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Product } from '../../models/product.model';
+import { Product } from '@core/models/product.model';
 import * as FavoritesActions from './favorites.actions';
 
 export interface FavoritesState extends EntityState<Product> {

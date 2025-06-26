@@ -4,13 +4,13 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { map, catchError, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as ProductActions from './product.actions';
-import { ProductService } from '../../../features/products/services/product.service';
+import { ProductService } from '@features/products/services/product.service';
 import {
   selectCurrentPage,
   selectSearchQuery,
   selectSelectedCategory,
 } from './product.selectors';
-import { ProductsResponse } from '../../models/product.model';
+import { ProductsResponse } from '@core/models/product.model';
 
 @Injectable()
 export class ProductEffects {

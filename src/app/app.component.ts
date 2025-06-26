@@ -53,4 +53,11 @@ export class AppComponent {
     this.authService.logout();
     this.isMenuOpen = false;
   }
+
+  scrollToMainContent(): void {
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }

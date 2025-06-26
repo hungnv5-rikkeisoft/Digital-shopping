@@ -11,7 +11,7 @@ import {
 } from 'rxjs/operators';
 import * as FavoritesActions from './favorites.actions';
 import { FavoritesService } from '../favorites.service';
-import { Product } from '../../models/product.model';
+import { Product } from '@core/models/product.model';
 import { selectAllFavorites } from './favorites.selectors';
 
 @Injectable()

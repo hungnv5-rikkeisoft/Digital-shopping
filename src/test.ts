@@ -14,4 +14,4 @@ getTestBed().initTestEnvironment(
 );
 
 // Import only the existing spec file
-import './app/core/auth/pages/login/login.component.spec';
+import '@app/core/auth/pages/login/login.component.spec';

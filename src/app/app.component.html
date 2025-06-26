@@ -56,7 +56,7 @@
         Transform your online presence with our innovative platform.
       </p>
       <div class="hero-cta">
-        <a routerLink="/products" class="cta-primary">EXPLORE PRODUCTS</a>
+        <a class="cta-primary" (click)="scrollToMainContent()">EXPLORE PRODUCTS</a>
         <a routerLink="/favorites" class="cta-secondary">VIEW FAVORITES</a>
       </div>
     </div>
@@ -78,7 +78,7 @@
 </section>
 
 <!-- Main Content -->
-<main class="main-content">
+<main class="main-content" id="main-content">
   <router-outlet></router-outlet>
 </main>
 
