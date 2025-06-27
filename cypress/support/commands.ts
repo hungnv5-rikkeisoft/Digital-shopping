@@ -101,12 +101,12 @@ Cypress.Commands.add('fillLoginForm', (username: string, password: string) => {
 // Custom command to check if logged in
 Cypress.Commands.add('shouldBeLoggedIn', () => {
   cy.window()
-    .its('localStorage')
+    .its('sessionStorage')
     .invoke('getItem', 'accessToken')
     .should('exist');
 
   cy.window()
-    .its('localStorage')
+    .its('sessionStorage')
     .invoke('getItem', 'currentUser')
     .should('exist');
 });
@@ -114,12 +114,12 @@ Cypress.Commands.add('shouldBeLoggedIn', () => {
 // Custom command to check if logged out
 Cypress.Commands.add('shouldBeLoggedOut', () => {
   cy.window()
-    .its('localStorage')
+    .its('sessionStorage')
     .invoke('getItem', 'accessToken')
     .should('not.exist');
 
   cy.window()
-    .its('localStorage')
+    .its('sessionStorage')
     .invoke('getItem', 'currentUser')
     .should('not.exist');
 });

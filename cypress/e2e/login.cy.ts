@@ -1,7 +1,11 @@
 describe('Login Form E2E Tests', () => {
   beforeEach(() => {
-    // Clear any existing auth data
+    // Clear any existing auth data from both storage types
     cy.clearLocalStorage();
+    cy.clearCookies();
+    cy.window().then((win) => {
+      win.sessionStorage.clear();
+    });
 
     // Visit the login page
     cy.visit('/login');
@@ -161,9 +165,9 @@ describe('Login Form E2E Tests', () => {
       // Should redirect to products page
       cy.url().should('include', '/products');
 
-      // Should store token in localStorage
+      // Should store token in sessionStorage
       cy.window()
-        .its('localStorage')
+        .its('sessionStorage')
         .invoke('getItem', 'accessToken')
         .should('equal', 'mock-jwt-token');
     });

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import { StorageService } from './storage.service';
 
 export interface ApiRequestOptions {
   headers?: HttpHeaders | { [header: string]: string | string[] };
@@ -13,6 +14,7 @@ export interface ApiRequestOptions {
 })
 export class ApiService {
   private baseUrl = environment.API_BASE_URL;
+  private storageService = inject(StorageService);
 
   constructor(private http: HttpClient) {}
 
@@ -65,9 +67,6 @@ export class ApiService {
   }
 
   private getStoredToken(): string | null {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('accessToken');
-    }
-    return null;
+    return this.storageService.getItem('accessToken');
   }
 }

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Product } from '@core/models/product.model';
+import { StorageService } from '@core/services/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ export class FavoritesService {
   private readonly STORAGE_KEY = 'webshop_favorites';
   private favoritesSubject = new BehaviorSubject<Product[]>([]);
   public favorites$ = this.favoritesSubject.asObservable();
+  private storageService = inject(StorageService);
 
   constructor() {
     this.loadFavoritesFromStorage();
@@ -53,9 +55,10 @@ export class FavoritesService {
 
   private loadFavoritesFromStorage(): void {
     try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
-      if (stored) {
-        const favorites = JSON.parse(stored) as Product[];
+      const favorites = this.storageService.getItemAsObject<Product[]>(
+        this.STORAGE_KEY
+      );
+      if (favorites) {
         this.favoritesSubject.next(favorites);
       }
     } catch (error) {
@@ -66,7 +69,7 @@ export class FavoritesService {
 
   private saveFavoritesToStorage(favorites: Product[]): void {
     try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favorites));
+      this.storageService.setItem(this.STORAGE_KEY, favorites);
     } catch (error) {
       console.error('Error saving favorites to storage:', error);
     }

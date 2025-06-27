@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User, LoginRequest, LoginResponse } from '@core/models/user.model';
 import { Router } from '@angular/router';
 import { ApiService } from '@core/services/api.service';
+import { StorageService } from '@core/services/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { ApiService } from '@core/services/api.service';
 export class AuthService {
   private apiService = inject(ApiService);
   private router = inject(Router);
+  private storageService = inject(StorageService);
 
   private loggedIn = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<User | null>(null);
@@ -31,28 +33,24 @@ export class AuthService {
   }
 
   private checkToken(): void {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem(this.TOKEN_KEY);
-      const userData = localStorage.getItem(this.USER_KEY);
+    const token = this.storageService.getItem(this.TOKEN_KEY);
+    const userData = this.storageService.getItem(this.USER_KEY);
 
-      if (token && userData) {
-        try {
-          const user: User = JSON.parse(userData);
-          this.loggedIn.next(true);
-          this.user.next(user);
-        } catch (error) {
-          // If user data is corrupted, clear everything
-          this.clearStoredData();
-        }
+    if (token && userData) {
+      try {
+        const user: User = JSON.parse(userData);
+        this.loggedIn.next(true);
+        this.user.next(user);
+      } catch (error) {
+        // If user data is corrupted, clear everything
+        this.clearStoredData();
       }
     }
   }
 
   private clearStoredData(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(this.TOKEN_KEY);
-      localStorage.removeItem(this.USER_KEY);
-    }
+    this.storageService.removeItem(this.TOKEN_KEY);
+    this.storageService.removeItem(this.USER_KEY);
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
@@ -69,10 +67,8 @@ export class AuthService {
           image: response.image,
         };
 
-        if (typeof window !== 'undefined') {
-          localStorage.setItem(this.TOKEN_KEY, response.token);
-          localStorage.setItem(this.USER_KEY, JSON.stringify(user));
-        }
+        this.storageService.setItem(this.TOKEN_KEY, response.token);
+        this.storageService.setItem(this.USER_KEY, user);
 
         this.loggedIn.next(true);
         this.user.next(user);

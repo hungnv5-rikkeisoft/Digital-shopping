@@ -13,12 +13,14 @@ import * as FavoritesActions from './favorites.actions';
 import { FavoritesService } from '../favorites.service';
 import { Product } from '@core/models/product.model';
 import { selectAllFavorites } from './favorites.selectors';
+import { StorageService } from '@core/services/storage.service';
 
 @Injectable()
 export class FavoritesEffects {
   private actions$ = inject(Actions);
   private favoritesService = inject(FavoritesService);
   private store = inject(Store);
+  private storageService = inject(StorageService);
 
   loadFavorites$ = createEffect(() =>
     this.actions$.pipe(
@@ -82,7 +84,7 @@ export class FavoritesEffects {
     )
   );
 
-  // Side effect for saving to localStorage without dispatching new actions
+  // Side effect for saving to storage without dispatching new actions
   saveFavoritesToStorage$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -95,12 +97,9 @@ export class FavoritesEffects {
         withLatestFrom(this.store.select(selectAllFavorites)),
         tap(([action, favorites]) => {
           try {
-            localStorage.setItem(
-              'webshop_favorites',
-              JSON.stringify(favorites)
-            );
+            this.storageService.setItem('webshop_favorites', favorites);
           } catch (error) {
-            console.error('Error saving favorites to localStorage:', error);
+            console.error('Error saving favorites to storage:', error);
           }
         })
       ),
