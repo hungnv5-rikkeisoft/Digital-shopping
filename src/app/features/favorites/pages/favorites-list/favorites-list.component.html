@@ -63,6 +63,7 @@
         *ngFor="let favorite of favorites$ | async; trackBy: trackByProductId; let i = index"
         [product]="favorite"
         [showFavoriteButton]="true"
+        [isTemporarilyVisible]="isTemporarilyVisible(favorite.id)"
         [ngClass]="'favorite-item-' + (i + 1)"
         (toggleFavorite)="onToggleFavorite($event)">
       </app-product-card>

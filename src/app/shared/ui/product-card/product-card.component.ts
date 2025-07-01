@@ -17,6 +17,7 @@ import { selectIsFavorite } from '@core/state';
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
   @Input() showFavoriteButton = true;
+  @Input() isTemporarilyVisible = false; // Indicates product was unfavorited but still visible
   @Output() toggleFavorite = new EventEmitter<Product>();
 
   isFavorite$: Observable<boolean> = new Observable();

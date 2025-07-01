@@ -346,3 +346,40 @@
 .product-card:nth-child(6) {
   animation-delay: 0.6s;
 }
+
+// Temporarily visible state styles
+.product-card.temporarily-visible {
+  opacity: 0.7;
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.02);
+
+  &:hover {
+    opacity: 0.85;
+    border-color: rgba(245, 158, 11, 0.4);
+  }
+
+  .product-title {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .product-brand {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.temporarily-visible-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  z-index: 3;
+  margin-top: 2.5rem; // Position below discount badge if present
+  text-transform: uppercase;
+}

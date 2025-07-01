@@ -1,8 +1,11 @@
-<div class="product-card">
+<div class="product-card" [class.temporarily-visible]="isTemporarilyVisible">
   <div class="product-image">
     <img [src]="product.thumbnail" [alt]="product.title" />
     <div class="discount-badge" *ngIf="product.discountPercentage > 0">
       -{{ product.discountPercentage }}%
+    </div>
+    <div class="temporarily-visible-badge" *ngIf="isTemporarilyVisible">
+      Recently removed
     </div>
     <button 
       *ngIf="showFavoriteButton"
