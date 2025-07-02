@@ -49,7 +49,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ### 1. Authentication Flow
 
 ```
-User Access → Login Component → Auth Service → API Login → JWT Token → Local Storage → Route Guard Protection
+User Access → Login Component → Auth Service → API Login → JWT Token → Session Storage → Route Guard Protection
 ```
 
 ### 2. Product Management Flow
@@ -61,7 +61,7 @@ Product List → API Service → NgRx Store → Product Effects → State Update
 ### 3. Favorites System Flow
 
 ```
-Product Card → Add/Remove Favorite → Favorites Service → NgRx Store → Local Storage → Favorites List
+Product Card → Add/Remove Favorite → Favorites Service → NgRx Store → Session Storage → Favorites List
 ```
 
 ### 4. Core Features
@@ -70,7 +70,7 @@ Product Card → Add/Remove Favorite → Favorites Service → NgRx Store → Lo
 
 - **Login/Logout functionality** with JWT token management
 - **Route protection** using Angular Guards
-- **Persistent sessions** with localStorage
+- **Persistent sessions** with sessionStorage
 - **Auto-redirect** for unauthorized access
 
 #### 🛍️ Product Catalog
