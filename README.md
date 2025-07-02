@@ -100,7 +100,6 @@ Product Card → Add/Remove Favorite → Favorites Service → NgRx Store → Se
 The application follows **Angular's recommended architecture** with:
 
 - **Feature-based modules** (products, favorites, auth)
-- **Lazy loading** for optimal performance
 - **Barrel exports** for clean imports
 - **Reactive programming** with RxJS streams
 - **Immutable state management** with NgRx
